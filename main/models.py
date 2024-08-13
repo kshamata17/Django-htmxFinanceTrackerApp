@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(AbstractUser):
-    pass
+# class User(AbstractUser):
+#     pass
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
@@ -19,7 +19,7 @@ class Transaction(models.Model):
         ('income', 'INCOME'),
         ('expense', 'EXPENSE'),
     )
-    transaction_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    transaction_user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     transaction_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPE_CHOICES)
     transaction_amount = models.DecimalField(max_digits=10, decimal_places=2)
