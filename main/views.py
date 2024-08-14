@@ -10,10 +10,14 @@ def home(request):
     return render(request, 'main/home.html', context)
 
 @login_required
-def transactions(request):
+def transactions_list(request):
     transaction_filter = TransactionFilter(
-        request.GET, queryset=Transaction.objects.filter(transaction_user=request.user)
+        request.GET, 
+        queryset=Transaction.objects.filter(transaction_user=request.user).select_related('transaction_category')
      )
-    transactions = transaction_filter.qs
     context = {'filter': transaction_filter}
+
+    if request.htmx:
+        return render(request, 'main/partials/transactions-container.html', context)
+    
     return render(request, 'main/transactions.html', context)
