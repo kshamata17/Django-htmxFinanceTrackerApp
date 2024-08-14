@@ -1,0 +1,53 @@
+{% load widget_tweaks %}
+<div class="row py-4 gy-4" id="transcation-container">
+    <div class="col-md-4 d-md-none d-lg-none">
+        <form hx-get="{% url 'main-transactions' %}"
+        hx-target="#transcation-container"
+        hx-swap="outerHTML">
+            <div class="mb-2 ">
+                {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
+                {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
+            </div>
+            <button class="btn btn-success">Filter</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        {% if filter.qs %}
+        <table class="table table-hover text-white">
+            <thead>
+                <tr class="text-uppercase">
+                    <th class="px-6 py-3">Date</th>
+                    <th class="px-6 py-3">Category</th>
+                    <th class="px-6 py-3">Type</th>
+                    <th class="px-6 py-3">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in filter.qs %}
+                <tr class="text-sm">
+                    <td>{{transaction.transaction_date}}</td>
+                    <td>{{transaction.transaction_category}}</td>
+                    <td>{{transaction.transaction_type}}</td>
+                    <td>{{transaction.transaction_amount}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-2xl text-white">
+            No transactions found
+        </p>
+        {% endif %}
+    </div>
+    <div class="col-md-4 d-none d-md-block d-lg-block">
+        <form hx-get="{% url 'main-transactions' %}"
+        hx-target="#transcation-container"
+        hx-swap="outerHTML">
+            <div class="mb-2">
+                {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
+                {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
+            </div>
+            <button class="btn btn-success">Filter</button>
+        </form>
+    </div>
+</div>
