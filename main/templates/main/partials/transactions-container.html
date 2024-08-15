@@ -1,38 +1,76 @@
 {% load widget_tweaks %}
-<div class="row py-4 gy-4" id="transcation-container">
+{% load humanize %}
+<div class="row py-4 gy-4" id="transaction-container">
     <div class="col-md-4 d-md-none d-lg-none">
         <form hx-get="{% url 'main-transactions' %}"
-        hx-target="#transcation-container"
+        hx-target="#transaction-container"
         hx-swap="outerHTML">
-            <div class="mb-2 ">
+            <div class="mb-2">
                 {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
                 {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.start_date|add_label_class:"form-label text-white"}}
+                {% render_field filter.form.start_date class="form-control bg-gray-300 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.end_date|add_label_class:"form-label text-white"}}
+                {% render_field filter.form.end_date class="form-control bg-gray-300 text-gray-800" %}
+            </div>
+            <div class="mb-4">
+                {% render_field filter.form.category class="text-gray-300" %}
             </div>
             <button class="btn btn-success">Filter</button>
         </form>
     </div>
     <div class="col-md-8">
-        {% if filter.qs %}
-        <table class="table table-hover text-white">
-            <thead>
-                <tr class="text-uppercase">
-                    <th class="px-6 py-3">Date</th>
-                    <th class="px-6 py-3">Category</th>
-                    <th class="px-6 py-3">Type</th>
-                    <th class="px-6 py-3">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transaction in filter.qs %}
-                <tr class="text-sm">
-                    <td>{{transaction.transaction_date}}</td>
-                    <td>{{transaction.transaction_category}}</td>
-                    <td>{{transaction.transaction_type}}</td>
-                    <td>{{transaction.transaction_amount}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="py-4">
+            <h3 class="text-white text-uppercase">
+                Totals
+            </h3>
+            <table class="table table-hover text-white">
+                <thead>
+                    <tr class="text-uppercase">
+                        <th class="px-6 py-3">Total Income</th>
+                        <th class="px-6 py-3">Total Expenses</th>
+                        <th class="px-6 py-3">Net Income</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-sm">
+                        <td>Rs.{{total_income|floatformat:2|intcomma}}</td>
+                        <td>Rs.{{total_expense|floatformat:2|intcomma}}</td>
+                        <td>Rs.{{net_income|floatformat:2|intcomma}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="py-4">
+            <h3 class="text-white text-uppercase">
+                Transactions
+            </h3>
+            {% if filter.qs %}
+            <table class="table table-hover text-white">
+                <thead>
+                    <tr class="text-uppercase">
+                        <th class="px-6 py-3">Date</th>
+                        <th class="px-6 py-3">Category</th>
+                        <th class="px-6 py-3">Type</th>
+                        <th class="px-6 py-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in filter.qs %}
+                    <tr class="text-sm">
+                        <td>{{transaction.transaction_date}}</td>
+                        <td>{{transaction.transaction_category}}</td>
+                        <td>{{transaction.transaction_type}}</td>
+                        <td>{{transaction.transaction_amount|floatformat:2|intcomma}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% else %}
         <p class="text-2xl text-white">
             No transactions found
@@ -46,6 +84,17 @@
             <div class="mb-2">
                 {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
                 {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.start_date|add_label_class:"form-label text-white"}}
+                {% render_field filter.form.start_date class="form-control bg-gray-300 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.end_date|add_label_class:"form-label text-white"}}
+                {% render_field filter.form.end_date class="form-control bg-gray-300 text-gray-800" %}
+            </div>
+            <div class="mb-4">
+                {% render_field filter.form.category class="text-gray-300" %}
             </div>
             <button class="btn btn-success">Filter</button>
         </form>
