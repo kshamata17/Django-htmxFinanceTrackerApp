@@ -7,9 +7,9 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
         django_get_or_create = ["username",]
 
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
     username = factory.Sequence(lambda n: f"user{n}")
-    password = "password"
-    email = factory.Sequence(lambda n: f"user{n}@example.com")
 
 class CategoryFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -26,12 +26,14 @@ class TransactionFactory(factory.django.DjangoModelFactory):
         
     transaction_user = factory.SubFactory(UserFactory)
     transaction_category = factory.SubFactory(CategoryFactory)
-    transaction_amount = factory.Faker("pydecimal", left_digits=2, right_digits=2, positive=True)
+    transaction_amount = 5
     transaction_date = factory.Faker(
-        "date_time",
-        start_date = datetime(2020, 1, 1).date(),
+        "date_between",
+        start_date = datetime(year=2021, month=1, day=1).date(),
         end_date = datetime.now().date(),
     )
     transaction_type = factory.Iterator(
-        [x[0] for x in Transaction.TRANSACTION_TYPE_CHOICES]
+        [
+            x[0] for x in Transaction.TRANSACTION_TYPE_CHOICES
+        ]
     )
