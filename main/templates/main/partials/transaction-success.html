@@ -1,0 +1,16 @@
+<div class="alert alert-info" role="alert">
+    {{message}}
+</div>
+<div class="mt-4">
+    <button class="btn btn-success"
+        hx-get="{% url 'create-transaction' %}"
+        hx-target="#transaction-block">
+        Add another
+    </button>
+    <button class="btn btn-success"
+        hx-get="{% url 'main-transactions' %}"
+        hx-target="#transaction-block">
+        View transactions
+    </button>
+
+</div>
