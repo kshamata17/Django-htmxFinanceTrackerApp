@@ -35,7 +35,7 @@ class TransactionFilter(django_filters.FilterSet):
 
     )
 
-    category = django_filters.ModelChoiceFilter(
+    category = django_filters.ModelMultipleChoiceFilter(
         queryset = Category.objects.all(),
         widget = forms.CheckboxSelectMultiple(),
     )
