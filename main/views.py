@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Transaction
 from .filters import TransactionFilter
+from .forms import TransactionForm
 
 # Create your views here.
 def home(request):
@@ -29,3 +30,18 @@ def transactions_list(request):
         return render(request, 'main/partials/transactions-container.html', context)
     
     return render(request, 'main/transactions.html', context)
+
+@login_required
+def create_transaction(request):
+    if request.method == 'POST':
+        form = TransactionForm(request.POST)
+        if form.is_valid():
+            transaction = form.save(commit=False)
+            transaction.transaction_user = request.user
+            transaction.save()
+            context = {'message': 'Transaction created successfully!'}
+            return render(request, 'main/partials/transaction-success.html', context)
+    context = {
+        'form': TransactionForm()
+        }
+    return render(request, 'main/partials/create-transaction.html', context)
