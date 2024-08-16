@@ -13,7 +13,7 @@
     <!-- fontawesome icons -->    
     <link rel="stylesheet" href="{% static 'main/css/fontawesome.css' %}">
 </head>
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
     {% include 'main/includes/navbar.html' %}
 
