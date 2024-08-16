@@ -4,11 +4,12 @@
 {% block content %}
 <section class="py-4">
     <div class="container py-4">
-        <h1 class="text-white text-uppercase">
-            <i class="fa-solid fa-list"></i>  
-            Transactions List
-        </h1>
-        <div>
+        
+        <div id="transaction-block">
+            <h1 class="text-white text-uppercase">
+                <i class="fa-solid fa-list"></i>  
+                Transactions List
+            </h1>
             {% include 'main/partials/transactions-container.html' %}
         </div>
     </div>
