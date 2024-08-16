@@ -46,9 +46,16 @@
             </table>
         </div>
         <div class="py-4">
-            <h3 class="text-white text-uppercase">
-                Transactions
-            </h3>
+            <div class="d-flex align-items-center justify-content-between">
+                <h3 class="text-white text-uppercase">
+                    Transactions
+                </h3>
+                <a hx-get="{% url 'create-transaction' %}"
+                    hx-push-url="true"
+                    hx-target="#transaction-block">
+                    <i class="fa-solid fa-circle-plus"></i>
+                </a>
+            </div>
             {% if filter.qs %}
             <table class="table table-hover text-white">
                 <thead>
@@ -79,7 +86,7 @@
     </div>
     <div class="col-md-4 d-none d-md-block d-lg-block">
         <form hx-get="{% url 'main-transactions' %}"
-        hx-target="#transcation-container"
+        hx-target="#transaction-container"
         hx-swap="outerHTML">
             <div class="mb-2">
                 {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
