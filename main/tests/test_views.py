@@ -2,7 +2,8 @@ import pytest
 from django.urls import reverse
 from datetime import datetime, timedelta
 
-from main.models import Category
+from main.models import Category, Transaction
+from pytest_django.asserts import assertTemplateUsed
 
 @pytest.mark.django_db
 def test_total_values_appear_on_list_page(user_transactions, client):
@@ -84,3 +85,20 @@ def test_category_filter(user_transactions, client):
 
     for transaction in qs:
         assert transaction.transaction_category.pk in category_pks
+
+@pytest.mark.django_db
+def test_add_transaction_request(user, transaction_dict_params, client):
+   client.force_login(user)
+   user_transaction_count = Transaction.objects.filter(transaction_user=user).count()
+
+   # send request with transaction data
+   headers = {'HTTP_HX-Request': 'true'}
+   response = client.post(
+      reverse('create-transaction'), 
+      transaction_dict_params, 
+      **headers
+   )
+
+   assert Transaction.objects.filter(transaction_user=user).count() == user_transaction_count + 1
+
+   assertTemplateUsed(response, 'main/partials/transaction-success.html')
