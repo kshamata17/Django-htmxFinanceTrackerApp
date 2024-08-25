@@ -1,5 +1,5 @@
 {% load static %}
-<div class="bg-gray-300">
+<div class="bg-gray-300 sticky-top">
   <!-- Toggle Sidebar Button -->
    <div class="d-flex align-items-center p-2">
       <button class="btn" type="button" id="toggleSidebar">
@@ -15,7 +15,7 @@
           </div>
       </div>
 
-      <a href="#" class="d-flex align-items-center text-primary">
+      <a href="{% url 'login' %}" class="d-flex align-items-center text-primary">
         <i class="fa fa-sign-in" aria-hidden="true"></i>
           <p class="mb-0 ms-2">LOGIN</p>
       </a>
