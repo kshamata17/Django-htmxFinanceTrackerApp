@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Transaction
 from .filters import TransactionFilter
@@ -50,3 +50,10 @@ def create_transaction(request):
         'form': TransactionForm()
         }
     return render(request, 'main/partials/create-transaction.html', context)
+
+def login(request):
+
+    return render(request, 'main/login.html')
+
+def register(request):
+    return render(request, 'main/register.html')
