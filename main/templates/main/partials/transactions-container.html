@@ -1,20 +1,20 @@
 {% load widget_tweaks %}
 {% load humanize %}
 <div class="row py-4 gy-4" id="transaction-container">
-    <div class="col-md-4 d-md-none d-lg-none">
+    <div class="col-md-4 d-md-none d-lg-none bg-primary py-4">
         <form hx-get="{% url 'main-transactions' %}"
         hx-target="#transaction-container"
         hx-swap="outerHTML">
             <div class="mb-2">
-                {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
+                {{filter.form.transaction_type|add_label_class:"form-label text-white text-uppercase"}}
                 {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
             </div>
             <div class="mb-2">
-                {{filter.form.start_date|add_label_class:"form-label text-white"}}
+                {{filter.form.start_date|add_label_class:"form-label text-white text-uppercase"}}
                 {% render_field filter.form.start_date class="form-control bg-gray-300 text-gray-800" %}
             </div>
             <div class="mb-2">
-                {{filter.form.end_date|add_label_class:"form-label text-white"}}
+                {{filter.form.end_date|add_label_class:"form-label text-white text-uppercase"}}
                 {% render_field filter.form.end_date class="form-control bg-gray-300 text-gray-800" %}
             </div>
             <div class="mb-4">
@@ -25,41 +25,53 @@
     </div>
     <div class="col-md-8">
         <div class="py-4">
-            <h3 class="text-white text-uppercase">
-                Totals
+            <h3 class="text-uppercase text-dark">
+                My cashflow
             </h3>
-            <table class="table table-hover text-white">
-                <thead>
-                    <tr class="text-uppercase">
-                        <th class="px-6 py-3">Total Income</th>
-                        <th class="px-6 py-3">Total Expenses</th>
-                        <th class="px-6 py-3">Net Income</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-sm">
-                        <td>Rs.{{total_income|floatformat:2|intcomma}}</td>
-                        <td>Rs.{{total_expense|floatformat:2|intcomma}}</td>
-                        <td>Rs.{{net_income|floatformat:2|intcomma}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card h-100 bg-gray-200 border-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-uppercase text-secondary">Total Income</h5>
+                      <p class="card-text fs-3">Rs.{{total_income|floatformat:2|intcomma}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100 bg-gray-200 border-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-uppercase text-secondary">Total Expenses</h5>
+                      <p class="card-text fs-3">Rs.{{total_expense|floatformat:2|intcomma}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100 bg-gray-200 border-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-uppercase text-secondary">Net Income</h5>
+                      <p class="card-text fs-3">Rs.{{net_income|floatformat:2|intcomma}}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
         <div class="py-4">
             <div class="d-flex align-items-center justify-content-between">
-                <h3 class="text-white text-uppercase">
+                <h3 class="text-uppercase text-dark">
                     Transactions
                 </h3>
                 <a hx-get="{% url 'create-transaction' %}"
                     hx-push-url="true"
-                    hx-target="#transaction-block">
-                    <i class="fa-solid fa-circle-plus"></i>
+                    hx-target="#transaction-block"
+                    class="cursor-pointer"
+                    >
+                    <i class="fa-solid fa-circle-plus fa-2x"></i>
                 </a>
             </div>
             {% if filter.qs %}
-            <table class="table table-hover text-white">
+            <table class="table table-hover">
                 <thead>
-                    <tr class="text-uppercase">
+                    <tr class="text-uppercase bg-primary text-white">
                         <th class="px-6 py-3">Date</th>
                         <th class="px-6 py-3">Category</th>
                         <th class="px-6 py-3">Type</th>
@@ -84,20 +96,20 @@
         </p>
         {% endif %}
     </div>
-    <div class="col-md-4 d-none d-md-block d-lg-block">
+    <div class="col-md-4 d-none d-md-block d-lg-block bg-primary py-4 sticky-top">
         <form hx-get="{% url 'main-transactions' %}"
         hx-target="#transaction-container"
         hx-swap="outerHTML">
             <div class="mb-2">
-                {{filter.form.transaction_type|add_label_class:"form-label text-white"}}
+                {{filter.form.transaction_type|add_label_class:"form-label text-white text-uppercase"}}
                 {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
             </div>
             <div class="mb-2">
-                {{filter.form.start_date|add_label_class:"form-label text-white"}}
+                {{filter.form.start_date|add_label_class:"form-label text-white text-uppercase"}}
                 {% render_field filter.form.start_date class="form-control bg-gray-300 text-gray-800" %}
             </div>
             <div class="mb-2">
-                {{filter.form.end_date|add_label_class:"form-label text-white"}}
+                {{filter.form.end_date|add_label_class:"form-label text-white text-uppercase"}}
                 {% render_field filter.form.end_date class="form-control bg-gray-300 text-gray-800" %}
             </div>
             <div class="mb-4">
