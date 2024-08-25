@@ -15,10 +15,12 @@
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
-    {% include 'main/includes/navbar.html' %}
-
+    {% include 'main/includes/sidebar.html' %}
+    <div id="content">
+        {% include 'main/includes/navbar.html' %}
         {% block content %}
         {% endblock %}
+    </div>
 
     {% include 'main/includes/footer.html' %}
     <script src="{% static 'main/js/theme.js' %}"></script>
@@ -27,6 +29,9 @@
     <script src="{% static 'main/js/fontawesome.js' %}"></script>
 
     <!-- HTMX -->
-    <script src="{% static 'main/js/htmx.min.js' %}" defer></script>    
+    <script src="{% static 'main/js/htmx.min.js' %}" defer></script>   
+    
+    <script src="{% static 'main/js/script.js' %}" defer></script>    
+
 </body>
 </html>

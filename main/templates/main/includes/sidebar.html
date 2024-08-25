@@ -1,0 +1,32 @@
+<div id="sidebar" class="collapsed py-4">
+  <div class="d-flex align-items-center text-uppercase h4 p-2">
+      <button id="toggle-btn" type="button">
+          <i class="fa-solid fa-money-bill-wave"></i>
+      </button>
+      <div class="sidebar-logo">
+          <a href="#" class="menu-text ms-2 text-white">
+            Finance Tracker
+          </a>
+      </div>
+  </div>
+  <ul class="menu">
+    <li>
+      <a href="{% url 'main-home' %}">
+        <i class="fas fa-home"></i>
+        <span class="menu-text ms-2">Home</span>
+      </a>   
+    </li>
+    <li>
+      <a href="{% url 'main-transactions' %}">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span class="menu-text ms-2">Transactions</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'main-transactions' %}">
+        <i class="fa-solid fa-user-shield"></i>
+        <span class="menu-text ms-2">Auth</span>
+      </a>
+    </li>
+  </ul>
+</div>

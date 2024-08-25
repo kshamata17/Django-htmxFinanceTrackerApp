@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Transaction
 from .filters import TransactionFilter
 from .forms import TransactionForm
+from django_htmx.http import retarget
 
 # Create your views here.
 def home(request):
@@ -41,6 +42,10 @@ def create_transaction(request):
             transaction.save()
             context = {'message': 'Transaction created successfully!'}
             return render(request, 'main/partials/transaction-success.html', context)
+        else:
+            context = {'form': form}
+            response = render(request, 'main/partials/create-transaction.html', context)
+            return retarget(response, '#transaction-block')
     context = {
         'form': TransactionForm()
         }
