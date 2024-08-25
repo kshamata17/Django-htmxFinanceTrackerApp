@@ -7,18 +7,18 @@
         hx-swap="outerHTML">
             <div class="mb-2">
                 {{filter.form.transaction_type|add_label_class:"form-label text-white text-uppercase"}}
-                {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
+                {% render_field filter.form.transaction_type class="form-select bg-gray-200 text-gray-800" %}
             </div>
             <div class="mb-2">
                 {{filter.form.start_date|add_label_class:"form-label text-white text-uppercase"}}
-                {% render_field filter.form.start_date class="form-control bg-gray-300 text-gray-800" %}
+                {% render_field filter.form.start_date class="form-control bg-gray-200 text-gray-800" %}
             </div>
             <div class="mb-2">
                 {{filter.form.end_date|add_label_class:"form-label text-white text-uppercase"}}
-                {% render_field filter.form.end_date class="form-control bg-gray-300 text-gray-800" %}
+                {% render_field filter.form.end_date class="form-control bg-gray-200 text-gray-800" %}
             </div>
             <div class="mb-4">
-                {% render_field filter.form.category class="text-gray-300" %}
+                {% render_field filter.form.category class="text-gray-200" %}
             </div>
             <button class="btn btn-success">Filter</button>
         </form>
@@ -96,24 +96,24 @@
         </p>
         {% endif %}
     </div>
-    <div class="col-md-4 d-none d-md-block d-lg-block bg-primary py-4 sticky-top">
+    <div class="col-md-4 d-none d-md-block d-lg-block bg-primary py-4 nav-holder sticky-top">
         <form hx-get="{% url 'main-transactions' %}"
         hx-target="#transaction-container"
         hx-swap="outerHTML">
             <div class="mb-2">
                 {{filter.form.transaction_type|add_label_class:"form-label text-white text-uppercase"}}
-                {% render_field filter.form.transaction_type class="form-select bg-gray-300 text-gray-800" %}
+                {% render_field filter.form.transaction_type class="form-select bg-gray-200 text-gray-800" %}
             </div>
             <div class="mb-2">
                 {{filter.form.start_date|add_label_class:"form-label text-white text-uppercase"}}
-                {% render_field filter.form.start_date class="form-control bg-gray-300 text-gray-800" %}
+                {% render_field filter.form.start_date class="form-control bg-gray-200 text-gray-800" %}
             </div>
             <div class="mb-2">
                 {{filter.form.end_date|add_label_class:"form-label text-white text-uppercase"}}
-                {% render_field filter.form.end_date class="form-control bg-gray-300 text-gray-800" %}
+                {% render_field filter.form.end_date class="form-control bg-gray-200 text-gray-800" %}
             </div>
             <div class="mb-4">
-                {% render_field filter.form.category class="text-gray-300" %}
+                {% render_field filter.form.category class="text-gray-200" %}
             </div>
             <button class="btn btn-success">Filter</button>
         </form>
