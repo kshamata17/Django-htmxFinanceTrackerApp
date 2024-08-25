@@ -2,23 +2,33 @@
 <h3 class="text-white text-uppercase">
     Create Transaction
 </h3>
-<form hx-post="{% url 'create-transaction' %}"
-        >
+<form hx-post="{% url 'create-transaction' %}">
     <div class="mb-2">
-        {{form.transaction_type|add_label_class:"form-label text-white"}}
+        {{form.transaction_type|add_label_class:"form-label text-dark text-uppercase"}}
         {% render_field form.transaction_type class="form-control bg-gray-300 text-gray-800" %}
     </div>
     <div class="mb-2">
-        {{form.transaction_amount|add_label_class:"form-label text-white"}}
+        {{form.transaction_amount|add_label_class:"form-label text-dark text-uppercase"}}
         {% render_field form.transaction_amount class="form-control bg-gray-300 text-gray-800" %}
+
+        {% for error in form.transaction_amount.errors %}
+        <p class="text-danger mt-2">{{ error }}</p>
+        {% endfor %}
     </div>
     <div class="mb-2">
-        {{form.transaction_date|add_label_class:"form-label text-white"}}
+        {{form.transaction_date|add_label_class:"form-label text-dark text-uppercase"}}
         {% render_field form.transaction_date class="form-control bg-gray-300 text-gray-800" %}
     </div>
     <div class="mb-4">
-        {{form.transaction_category|add_label_class:"form-label text-white"}}
-        {% render_field form.transaction_category class="text-gray-300" %}
+        {{form.transaction_category|add_label_class:"form-label text-dark text-uppercase"}}
+        {% render_field form.transaction_category class="text-dark" %}
     </div>
     <button class="btn btn-success">Add</button>
+    <button class="btn btn-danger" 
+        hx-get="{% url 'main-transactions' %}"
+        hx-target="#transaction-block"
+        hx-push-url='/transactions/'
+        >
+        Cancel
+    </button>
 </form>
