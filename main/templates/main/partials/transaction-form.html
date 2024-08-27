@@ -1,0 +1,21 @@
+{% load widget_tweaks %}
+<div class="mb-2">
+    {{form.transaction_type|add_label_class:"form-label text-dark text-uppercase"}}
+    {% render_field form.transaction_type class="form-control bg-gray-300 text-gray-800" %}
+</div>
+<div class="mb-2">
+    {{form.transaction_amount|add_label_class:"form-label text-dark text-uppercase"}}
+    {% render_field form.transaction_amount class="form-control bg-gray-300 text-gray-800" %}
+
+    {% for error in form.transaction_amount.errors %}
+    <p class="text-danger mt-2">{{ error }}</p>
+    {% endfor %}
+</div>
+<div class="mb-2">
+    {{form.transaction_date|add_label_class:"form-label text-dark text-uppercase"}}
+    {% render_field form.transaction_date class="form-control bg-gray-300 text-gray-800" %}
+</div>
+<div class="mb-4">
+    {{form.transaction_category|add_label_class:"form-label text-dark text-uppercase"}}
+    {% render_field form.transaction_category class="text-dark" %}
+</div>
