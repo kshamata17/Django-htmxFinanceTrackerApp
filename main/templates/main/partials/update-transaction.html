@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+<h3 class="text-uppercase">
+    Update Transaction
+</h3>
+<form hx-post="{% url 'update-transaction' transaction.pk %}">
+
+    {% include 'main/partials/transaction-form.html' %}
+    
+    <button class="btn btn-success">Update</button>
+    <button class="btn btn-danger" 
+        hx-get="{% url 'main-transactions' %}"
+        hx-target="#transaction-block"
+        hx-push-url='/transactions/'
+        >
+        Cancel
+    </button>
+</form>
