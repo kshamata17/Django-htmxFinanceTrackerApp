@@ -1,9 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator
+from django.conf import settings
+
 from .models import Transaction
 from .filters import TransactionFilter
 from .forms import TransactionForm
 from django_htmx.http import retarget
+from .forms import UserRegisterForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def home(request):
@@ -17,10 +24,15 @@ def transactions_list(request):
         request.GET, 
         queryset=Transaction.objects.filter(transaction_user=request.user).select_related('transaction_category')
     )
+    paginator = Paginator(transaction_filter.qs, settings.PAGE_SIZE)
+    transaction_page = paginator.page(1)
+
+
     total_income = transaction_filter.qs.get_total_incomes()
     total_expense = transaction_filter.qs.get_total_expenses()
     
     context = {
+        'transactions': transaction_page,
         'filter': transaction_filter,
         'total_income': total_income,
         'total_expense': total_expense,
@@ -51,9 +63,72 @@ def create_transaction(request):
         }
     return render(request, 'main/partials/create-transaction.html', context)
 
-def login(request):
+def user_login(request):
 
     return render(request, 'main/login.html')
 
-def register(request):
-    return render(request, 'main/register.html')
+def user_register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+
+    context = {
+        'form': form,
+        'title': 'Register',
+        }
+    return render(request, 'main/register.html', context)
+
+def update_transaction(request, pk):
+    transaction = get_object_or_404(Transaction, pk=pk)
+    if request.method == 'POST':
+        form = TransactionForm(request.POST, instance=transaction)
+        if form.is_valid():
+            transaction = form.save()
+            context = {'message': 'Transaction updated successfully!'}
+            return render(request, 'main/partials/transaction-success.html', context)
+        else:
+            context = {
+                'form': form,
+                'transaction': transaction,
+                }  
+            response = render(request, 'main/partials/update-transaction.html', context)
+            return retarget(response, '#transaction-block')
+        
+    context = {
+        'form': TransactionForm(instance=transaction),
+        'transaction': transaction,
+        'title': 'Update Transaction',    
+        }  
+    return render(request, 'main/partials/update-transaction.html', context)
+
+@login_required
+@require_http_methods(["DELETE"])
+def delete_transaction(request, pk):
+    transaction = get_object_or_404(Transaction, pk=pk, transaction_user=request.user)
+    transaction.delete()
+    context = {
+        'message': f"Transaction of {transaction.transaction_amount} on {transaction.transaction_date} deleted successfully!"
+        }
+    return render(request, 'main/partials/transaction-success.html', context)
+
+@login_required
+def get_transactions(request):
+    import time
+    time.sleep(2)
+    page = request.GET.get('page', 1) 
+    transaction_filter = TransactionFilter(
+        request.GET, 
+        queryset=Transaction.objects.filter(transaction_user=request.user).select_related('transaction_category')
+    )
+    paginator = Paginator(transaction_filter.qs, settings.PAGE_SIZE)
+    context = {
+        'transactions': paginator.page(page),
+    }
+
+    return render(request, 'main/partials/transactions-container.html#transaction_list', context)
