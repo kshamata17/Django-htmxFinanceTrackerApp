@@ -99,6 +99,28 @@ def test_add_transaction_request(user, transaction_dict_params, client):
       **headers
    )
 
+   print(response.status_code)
+   assert response.status_code == 200
+
+   print(response.content)
+
+
    assert Transaction.objects.filter(transaction_user=user).count() == user_transaction_count + 1
 
    assertTemplateUsed(response, 'main/partials/transaction-success.html')
+
+@pytest.mark.django_db
+def test_cannot_add_transaction_with_negative_amount(user, transaction_dict_params, client):
+   client.force_login(user)
+   user_transaction_count = Transaction.objects.filter(transaction_user=user).count()
+
+   transaction_dict_params['transaction_amount'] = -44
+   response = client.post(
+      reverse('create-transaction'), 
+      transaction_dict_params
+   )
+
+   assert Transaction.objects.filter(transaction_user=user).count() == user_transaction_count
+
+   assertTemplateUsed(response, 'main/partials/create-transaction.html')
+   assert 'HX-Retarget' in response.headers
