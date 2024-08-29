@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('transactions/charts', views.transaction_charts, name='transactions-charts'),
     path('transactions/export', views.export, name='export'),
+
+    path('transactions/user', views.user, name='main-user'),
 ]
