@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator
 from django.conf import settings
+from .resources import TransactionResource
+from django.http import HttpResponse
 
 from .models import Transaction
 from .filters import TransactionFilter
@@ -11,6 +13,7 @@ from django_htmx.http import retarget
 from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from main.charting import plot_income_expenses_bar_chart, plot_category_pie_chart
 
 # Create your views here.
 def home(request):
@@ -119,8 +122,6 @@ def delete_transaction(request, pk):
 
 @login_required
 def get_transactions(request):
-    import time
-    time.sleep(2)
     page = request.GET.get('page', 1) 
     transaction_filter = TransactionFilter(
         request.GET, 
@@ -132,3 +133,40 @@ def get_transactions(request):
     }
 
     return render(request, 'main/partials/transactions-container.html#transaction_list', context)
+
+def transaction_charts(request):
+    transaction_filter = TransactionFilter(
+        request.GET, 
+        queryset=Transaction.objects.filter(transaction_user=request.user).select_related('transaction_category')
+    )
+    income_expense_bar = plot_income_expenses_bar_chart(transaction_filter.qs)
+    category_income_pie = plot_category_pie_chart(
+        transaction_filter.qs.filter(transaction_type='income')
+        )
+    category_expense_pie = plot_category_pie_chart(
+        transaction_filter.qs.filter(transaction_type='expense')
+        )
+    context = {
+        'filter': transaction_filter,
+        'income_expense_barchart': income_expense_bar.to_html(),
+        'category_income_piechart': category_income_pie.to_html(),
+        'category_expense_piechart': category_expense_pie.to_html(),
+    }
+    if request.htmx:
+        return render(request, 'main/partials/charts-container.html', context)
+    return render(request, 'main/charts.html', context)
+
+@login_required
+def export(request): 
+    if request.htmx:
+        return HttpResponse(headers={'HX-Redirect': request.get_full_path()}) 
+    
+    transaction_filter = TransactionFilter(
+        request.GET, 
+        queryset=Transaction.objects.filter(transaction_user=request.user).select_related('transaction_category')
+    )  
+
+    data = TransactionResource().export(transaction_filter.qs)
+    response = HttpResponse(data.json, content_type='application/json')
+    response['Content-Disposition'] = 'attachment; filename="transactions.json"'
+    return response
