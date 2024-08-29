@@ -131,7 +131,6 @@ def get_transactions(request):
     context = {
         'transactions': paginator.page(page),
     }
-
     return render(request, 'main/partials/transactions-container.html#transaction_list', context)
 
 def transaction_charts(request):
@@ -170,3 +169,7 @@ def export(request):
     response = HttpResponse(data.json, content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename="transactions.json"'
     return response
+
+@login_required
+def user(request):  
+    return render(request, 'main/user.html')
