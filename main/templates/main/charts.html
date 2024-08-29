@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<section class="py-4">
+    <div class="container py-4">
+        <div id="chart-block">
+            <h1 class="text-uppercase">
+                <i class="fa-solid fa-list"></i>  
+                Transactions Charts
+            </h1>
+            {% include 'main/partials/charts-container.html' %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
