@@ -54,7 +54,6 @@ body {
 
 #content {
     margin-left: 60px; /* Same as collapsed sidebar width */
-    padding: 15px;
     transition: margin-left 0.3s ease-in-out;
     flex-grow: 1;
 }
