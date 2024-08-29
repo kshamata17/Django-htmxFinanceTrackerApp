@@ -15,7 +15,9 @@ def plot_income_expenses_bar_chart(qs):
         total = Sum('transaction_amount')
         )['total'] or 0
     
-    fig = px.bar(x=x_vals, y=[total_income, total_expenses], color=x_vals)
+    color_sequence = ['#1b768e', '#fb9833']
+    
+    fig = px.bar(x=x_vals, y=[total_income, total_expenses], color=x_vals, color_discrete_sequence=color_sequence)
     return fig
 
 def plot_category_pie_chart(qs):
@@ -28,6 +30,8 @@ def plot_category_pie_chart(qs):
     category_names = Category.objects.filter(pk__in=category_pks).order_by('pk').values_list('category_name', flat=True)
     total_amounts = count_per_category.values_list('total', flat=True)
 
-    fig = px.pie(values=total_amounts, names=category_names)
+    color_sequence = ['#1b768e', '#fb9833', '#5e5e5e', '#545454', '#414141', '#d63384', '#1877F2', '#dd4b39', '#0077B5', '#5e5e5e', '#545454']
+
+    fig = px.pie(values=total_amounts, names=category_names, color_discrete_sequence=color_sequence)
     fig.update_layout(title_text='Total amount per category')
     return fig
