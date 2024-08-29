@@ -1,6 +1,7 @@
 {% load widget_tweaks %}
 {% load partials %}
 {% load humanize %}
+
 <div class="row py-4 gy-4" id="transaction-container">
     <div class="col-md-4 d-md-none d-lg-none bg-primary py-4">
         <form hx-get="{% url 'main-transactions' %}"
@@ -98,14 +99,14 @@
                         hx-trigger="revealed"
                         hx-swap="afterend"
                         hx-include="#filterform"
-                        hx-indicator="spinner">
+                        hx-indicator="#spinner">
                     {% else %}
                     <tr class="text-sm">
                     {% endif %}
                         <td>{{transaction.transaction_date}}</td>
                         <td>{{transaction.transaction_category}}</td>
                         <td>{{transaction.transaction_type}}</td>
-                        <td>{{transaction.transaction_amount|floatformat:2|intcomma}}</td>
+                        <td>Rs. {{transaction.transaction_amount|floatformat:2|intcomma}}</td>
                         <td>
                             <a hx-get="{% url 'update-transaction' transaction.pk %}"
                                 hx-push-url="true"
@@ -133,6 +134,11 @@
             No transactions found
         </p>
         {% endif %}
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border htmx-indicator" id="spinner" role="status">
+              <span class="visually-hidden htmx-spinner">Loading...</span>
+            </div>
+        </div>
     </div>
     <div class="col-md-4 d-none d-md-block d-lg-block bg-primary py-4 nav-holder sticky-top">
         <form hx-get="{% url 'main-transactions' %}"
@@ -159,6 +165,6 @@
     </div>
 </div>
 
-<div class="spinner-border hx-indicator" id-spinner role="status">
+{% comment %} <div class="spinner-border htmx-indicator" id-spinner role="status">
     <span class="visually-hidden htmx-spinner">Loading...</span>
-</div>
+</div> {% endcomment %}
