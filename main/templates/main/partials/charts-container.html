@@ -1,0 +1,69 @@
+{% load widget_tweaks %}
+<div class="row py-4 gy-4" id="charts-container">
+    <div class="col-md-4 d-md-none d-lg-none bg-primary py-4">
+        <form hx-get="{% url 'transactions-charts' %}"
+        hx-target="#charts-container"
+        hx-swap="outerHTML"
+        hx-include="#filterform"
+        hx-indicator="#spinner">
+            <div class="mb-2">
+                {{filter.form.transaction_type|add_label_class:"form-label text-white text-uppercase"}}
+                {% render_field filter.form.transaction_type class="form-select bg-gray-200 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.start_date|add_label_class:"form-label text-white text-uppercase"}}
+                {% render_field filter.form.start_date class="form-control bg-gray-200 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.end_date|add_label_class:"form-label text-white text-uppercase"}}
+                {% render_field filter.form.end_date class="form-control bg-gray-200 text-gray-800" %}
+            </div>
+            <div class="mb-4">
+                {% render_field filter.form.category class="text-gray-200" %}
+            </div>
+            <button class="btn btn-success">Filter</button>
+        </form>
+        <div class="spinner-border hx-indicator mt-2" id-spinner role="status">
+            <span class="visually-hidden htmx-spinner text-center">Loading...</span>
+        </div>
+    </div>
+    <div class="col-md-8">
+        {{ income_expense_barchart|safe }}
+
+        <div class="row">
+            <div class="col-md-6">
+                {{ category_income_piechart|safe }}
+            </div>
+            <div class="col-md-6">
+                {{ category_expense_piechart|safe }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 d-none d-md-block d-lg-block bg-primary py-4 nav-holder sticky-top">
+        <form hx-get="{% url 'transactions-charts' %}"
+        hx-target="#charts-container"
+        hx-swap="outerHTML"
+        hx-include="#filterform"
+        hx-indicator="#spinner">
+            <div class="mb-2">
+                {{filter.form.transaction_type|add_label_class:"form-label text-white text-uppercase"}}
+                {% render_field filter.form.transaction_type class="form-select bg-gray-200 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.start_date|add_label_class:"form-label text-white text-uppercase"}}
+                {% render_field filter.form.start_date class="form-control bg-gray-200 text-gray-800" %}
+            </div>
+            <div class="mb-2">
+                {{filter.form.end_date|add_label_class:"form-label text-white text-uppercase"}}
+                {% render_field filter.form.end_date class="form-control bg-gray-200 text-gray-800" %}
+            </div>
+            <div class="mb-4">
+                {% render_field filter.form.category class="text-gray-200" %}
+            </div>
+            <button class="btn btn-success">Filter</button>
+        </form>
+        <div class="spinner-border hx-indicator mt-2" id-spinner role="status">
+            <span class="visually-hidden htmx-spinner text-center">Loading...</span>
+        </div>
+    </div>
+</div>
