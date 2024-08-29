@@ -24,11 +24,9 @@
                         <rect style="fill:#FFFFFF;" width="500" height="500"/>
                     </g>
                     <g id="OBJECTS">
-                
+                            <ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -303.8155 1581.9611)" style="opacity:0.4;fill:#E5E5FF;" cx="1757.688" cy="1157.718" rx="82.496" ry="82.496"/>
                             
-                                <ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -303.8155 1581.9611)" style="opacity:0.4;fill:#E5E5FF;" cx="1757.688" cy="1157.718" rx="82.496" ry="82.496"/>
-                            
-                                <ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -294.2519 453.3906)" style="opacity:0.4;fill:#E5E5FF;" cx="400.165" cy="581.889" rx="125.854" ry="125.854"/>
+                            <ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -294.2519 453.3906)" style="opacity:0.4;fill:#E5E5FF;" cx="400.165" cy="581.889" rx="125.854" ry="125.854"/>
                             <circle style="opacity:0.4;fill:#E5E5FF;" cx="835.478" cy="395.289" r="65.607"/>
                             <path style="fill:#9192FF;" d="M741.549,427.724c-4.057,0-8.155-0.32-12.175-0.951l0.388-2.47c3.893,0.611,7.86,0.92,11.792,0.92
                                 l0.457-0.001l0.016,2.5L741.549,427.724z M754.667,426.618l-0.418-2.465c4.017-0.682,8.023-1.699,11.908-3.023l0.807,2.366
@@ -526,22 +524,30 @@
                 </p>
             </div>
         </div>
-        <hr>
-        <div class="mb-4"> 
-            <a href="{% url 'main-transactions' %}" class="text-secondary fs-2">
-                <i class="fa-solid fa-chart-simple"></i>
-                View my transactions
-            </a>
+        <div class="row gy-4">
+            <div class="col-md-6">
+                <div class="card h-100 bg-primary">
+                    <a href="{% url 'main-transactions' %}" class="card-body d-flex flex-column text-center text-secondary fs-2">
+                        <i class="fa-solid fa-chart-simple text-secondary fs-2"></i>
+                            View my transactions
+                        <p class="fw-light text-sm text-white">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 bg-primary">
+                    <a href="{% url 'transactions-charts' %}" class="card-body d-flex flex-column text-center text-secondary fs-2">
+                        <i class="fa-solid fa-chart-pie text-secondary fs-2"></i>
+                            View my Charts
+                        <p class="fw-light text-sm text-white">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                    </a> 
+                </div>
+            </div>
         </div>
-        <div class="mb-4"> 
-            <a href="{% url 'transactions-charts' %}" class="text-secondary fs-2">
-                <i class="fa-solid fa-chart-pie"></i>
-                My Charts
-            </a>
-        </div>
-        <p class="fw-light text-sm text-dark">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
     </div>
 </section>
 {% endblock content %}
