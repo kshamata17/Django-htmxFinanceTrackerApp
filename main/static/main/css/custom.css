@@ -51,6 +51,23 @@ body {
     display: inline;
     opacity: 1;
 }
+#sidebar .menu li:hover {
+    background-color: #1b3a50;
+}
+#sidebar .menu li:hover i {
+    color: #ffffff;
+}
+#sidebar .menu li:hover .menu-text {
+    opacity: 1;
+    color: #ffffff;
+}
+
+#sidebar .menu li.active {
+    background-color: #1b3a50;
+}
+#sidebar .menu li.active .menu-text{
+    color: #ffffff;
+}
 
 #content {
     margin-left: 60px; /* Same as collapsed sidebar width */
