@@ -10,15 +10,18 @@ from .models import Transaction
 from .filters import TransactionFilter
 from .forms import TransactionForm
 from django_htmx.http import retarget
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserLoginForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from main.charting import plot_income_expenses_bar_chart, plot_category_pie_chart
 
 # Create your views here.
 def home(request):
     user = request.user
-    context = {'user': user}
+    context = {
+        'user': user,
+        'title': 'Home'
+        }
     return render(request, 'main/home.html', context)
 
 @login_required
@@ -39,7 +42,8 @@ def transactions_list(request):
         'filter': transaction_filter,
         'total_income': total_income,
         'total_expense': total_expense,
-        'net_income': total_income - total_expense
+        'net_income': total_income - total_expense,
+        'title': 'Transactions'
     }
 
     if request.htmx:
@@ -67,20 +71,29 @@ def create_transaction(request):
     return render(request, 'main/partials/create-transaction.html', context)
 
 def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    context = {'form': form, 'title': 'Login'}
 
-    return render(request, 'main/login.html')
+    return render(request, 'main/login.html', context)
 
 def user_register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
+            user = form.save(commit=False)
+            user.save()
+            
             return redirect('login')
+
     else:
         form = UserRegisterForm()
-
     context = {
         'form': form,
         'title': 'Register',
@@ -150,6 +163,7 @@ def transaction_charts(request):
         'income_expense_barchart': income_expense_bar.to_html(),
         'category_income_piechart': category_income_pie.to_html(),
         'category_expense_piechart': category_expense_pie.to_html(),
+        'title': 'Charts'
     }
     if request.htmx:
         return render(request, 'main/partials/charts-container.html', context)
@@ -172,4 +186,7 @@ def export(request):
 
 @login_required
 def user(request):  
-    return render(request, 'main/user.html')
+    context = {
+        'title': 'User'
+    }
+    return render(request, 'main/user.html', context)
