@@ -20,9 +20,10 @@
         {% include 'main/includes/navbar.html' %}
         {% block content %}
         {% endblock %}
+        {% include 'main/includes/footer.html' %}
     </div>
 
-    {% include 'main/includes/footer.html' %}
+    
     <script src="{% static 'main/js/theme.js' %}"></script>
     <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
     <!-- FontAwesome - loading as last, so it doesn't block rendering-->
