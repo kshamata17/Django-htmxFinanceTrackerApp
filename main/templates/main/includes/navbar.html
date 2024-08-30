@@ -15,9 +15,15 @@
           </div>
       </div>
 
+      {% if user.is_authenticated %}
+      <a href="#" class="btn btn-orange">
+        <span class="d-flex align-items-center"><i class="fa fa-sign-in me-2"></i>logout</span>       
+      </a>
+      {% else %}
       <a href="{% url 'login' %}" class="btn btn-orange">
         <span class="d-flex align-items-center"><i class="fa fa-sign-in me-2"></i>login</span>       
       </a>
+      {% endif %}
    </div>
   
 </div>
