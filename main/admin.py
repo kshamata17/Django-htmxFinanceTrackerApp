@@ -9,4 +9,3 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(models.Transaction)
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ('transaction_user', 'transaction_category', 'transaction_type', 'transaction_amount', 'transaction_date')
-
