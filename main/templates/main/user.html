@@ -3,9 +3,54 @@
 {% block content %}
 <section class="py-4">
     <div class="container py-4">
-        <h1 class="text-uppercase">
-            user
-        </h1>
+        <div class="row gy-4">
+            <div class="col-md-4">
+                <h1 class="text-uppercase">
+                    {{user.username}}
+                </h1>
+            </div>
+            <div class="col-md-8">
+                <h3>Profile Settings</h3>
+                <div class="row gy-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="mb-2 row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" readonly class="form-control" id="staticEmail" value="email@example.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2 row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputPassword" value="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2 row">
+                            <label for="mobileNumber" class="col-sm-2 col-form-label">Mobile Number</label>
+                                <div class="col-sm-10">
+                                <input type="number" class="form-control" id="mobileNumber" value="1234567890">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2 row">
+                            <label for="address" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="address" value="Kathmandu">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 col-4 mx-auto">
+                    <button class="btn btn-primary" type="button">edit</button>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </section>
 
