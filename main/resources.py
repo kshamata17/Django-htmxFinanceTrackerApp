@@ -3,8 +3,8 @@ from .models import Transaction, Category
 from import_export.widgets import ForeignKeyWidget
 
 class TransactionResource(resources.ModelResource):
-    category = fields.Field(
-        column_name='category',
+    transaction_category = fields.Field(
+        column_name='transaction_category',
         attribute='transaction_category',
         widget=ForeignKeyWidget(Category, 'category_name')
     )
