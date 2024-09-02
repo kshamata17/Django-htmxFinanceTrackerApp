@@ -10,9 +10,6 @@ from .models import Transaction
 from .filters import TransactionFilter
 from .forms import TransactionForm
 from django_htmx.http import retarget
-from .forms import UserRegisterForm, UserLoginForm
-from django.contrib import messages
-from django.contrib.auth import login
 from main.charting import plot_income_expenses_bar_chart, plot_category_pie_chart
 
 # Create your views here.
@@ -70,36 +67,7 @@ def create_transaction(request):
         }
     return render(request, 'main/partials/create-transaction.html', context)
 
-def user_login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserLoginForm()
-    context = {'form': form, 'title': 'Login'}
-
-    return render(request, 'main/login.html', context)
-
-def user_register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-            
-            return redirect('login')
-
-    else:
-        form = UserRegisterForm()
-    context = {
-        'form': form,
-        'title': 'Register',
-        }
-    return render(request, 'main/register.html', context)
-
+@login_required
 def update_transaction(request, pk):
     transaction = get_object_or_404(Transaction, pk=pk)
     if request.method == 'POST':
@@ -185,8 +153,11 @@ def export(request):
     return response
 
 @login_required
-def user(request):  
+def user(request):
+    user = request.user
+
     context = {
+        'user': user,
         'title': 'User'
     }
     return render(request, 'main/user.html', context)
