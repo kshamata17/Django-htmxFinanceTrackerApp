@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row gy-4">
+    <div class="col-md-5 bg-primary text-white d-flex justify-content-center align-items-center vh-100">
+        <div class="container text-center">
+            <h1>Already have an Account?</h1>
+            <p>{% lorem 1 b random %}</p>
+            <a href="{% url 'user-login' %}" class="btn btn-orange">Sign In</a>
+        </div>
+    </div>
+    <div class="col-md-7 d-flex justify-content-center align-items-center vh-100">
+        <div class="container text-center">
+            <h1>Welcome to Finance Tracker App</h1>
+            <p>Register using social networks</p>
+            <div class="social d-flex text-enter justify-content-center gap-2">
+                <p><i class="fa-brands fa-facebook fa-2x color-facebook"></i></p>
+                <p><i class="fa-brands fa-google-plus-g fa-2x color-google-plus"></i></p>
+                <p><i class="fa-brands fa-linkedin fa-2x color-linkedIn"></i></p>
+            </div>
+            <p>or</p>
+            <form method="POST">
+                
+        
+            </form>
+            <button class="btn btn-orange" type="submit">Sign Up</button>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
