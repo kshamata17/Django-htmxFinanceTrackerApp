@@ -1,10 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from .managers import TransactionQuerySet
+from user.models import User
 
 # Create your models here.
-class User(AbstractUser):
-    pass
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
