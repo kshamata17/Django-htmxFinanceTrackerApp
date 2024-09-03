@@ -151,13 +151,3 @@ def export(request):
     response = HttpResponse(data.json, content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename="transactions.json"'
     return response
-
-@login_required
-def user(request):
-    user = request.user
-
-    context = {
-        'user': user,
-        'title': 'User'
-    }
-    return render(request, 'main/user.html', context)
