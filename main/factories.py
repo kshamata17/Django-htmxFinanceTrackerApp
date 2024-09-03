@@ -1,6 +1,7 @@
 from datetime import datetime
 import factory
-from main.models import Category, Transaction, User
+from main.models import Category, Transaction
+from user.models import User
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
