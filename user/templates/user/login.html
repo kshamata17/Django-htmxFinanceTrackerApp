@@ -13,15 +13,10 @@
             </div>
             <p>or</p>
             <form method="POST">
-                <div class="mb-3">
-                    <input type="email" class="form-control" name="email" id="" placeholder="email"/>
-                </div>   
-                <div class="mb-3">
-                    <input type="password" class="form-control" name="password" id="" placeholder="password"/>
-                </div>   
-                
+                {% csrf_token %}
+                {{ form.as_p }}  
+                <button class="btn btn-orange" type="submit">Sign In</button>
             </form>
-            <button class="btn btn-orange" type="submit">Sign In</button>
         </div>
     </div>
     <div class="col-md-5 bg-primary text-white d-flex justify-content-center align-items-center vh-100">
