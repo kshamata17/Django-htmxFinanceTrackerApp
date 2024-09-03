@@ -16,6 +16,7 @@
         <span class="menu-text ms-2 ">Home</span>
       </a>   
     </li>
+    {% if user.is_authenticated %}
     <li>
       <a href="{% url 'main-transactions' %}">
         <i class="fa-solid fa-chart-simple"></i>
@@ -29,10 +30,11 @@
       </a>
     </li>
     <li>
-      <a href="{% url 'main-user' %}">
+      <a href="{% url 'user-profile' %}">
         <i class="fa-solid fa-user-shield"></i>
-        <span class="menu-text ms-2 {% if title == 'User' %} active {% endif %}">Auth</span>
+        <span class="menu-text ms-2 {% if title == 'Profile' %} active {% endif %}">Auth</span>
       </a>
     </li>
+    {% endif %}
   </ul>
 </div>
