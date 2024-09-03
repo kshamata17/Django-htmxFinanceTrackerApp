@@ -16,9 +16,15 @@
       </div>
 
       {% if user.is_authenticated %}
-      <a href="#" class="btn btn-orange">
+      <form method="post" action="{% url 'user-logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-orange">
+          <span class="d-flex align-items-center"><i class="fa fa-sign-in me-2"></i>logout</span>  
+        </button>
+      </form>
+      {% comment %} <a href="{% url 'user-logout' %}" class="btn btn-orange">
         <span class="d-flex align-items-center"><i class="fa fa-sign-in me-2"></i>logout</span>       
-      </a>
+      </a> {% endcomment %}
       {% else %}
       <a href="{% url 'user-login' %}" class="btn btn-orange">
         <span class="d-flex align-items-center"><i class="fa fa-sign-in me-2"></i>login</span>       
