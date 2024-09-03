@@ -15,4 +15,4 @@ class TransactionResource(resources.ModelResource):
             'transaction_type', 
             'transaction_amount', 
             'transaction_date',
-            )
+        )
