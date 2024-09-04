@@ -3,23 +3,42 @@
 {% block content %}
 <section class="py-4">
     <div class="container py-4">
+        <h1 class="text-uppercase mb-4 text-center">
+            User Profile
+        </h1>
         <div class="row gy-4">
-            <div class="col-md-4">
-                <h1 class="text-uppercase">
-                    {{user.username}}
-                </h1>
+            <div class="col-md-4 text-center">
+                <div class="mb-4">
+                    <img class="avatar avatar-xxl p-1 flex-shrink-0" src="{{profile.profile_image.url}}" alt="User Image">
+                </div>
+                <h1 class="text-uppercase">{{user.username}}</h1>
+                <p>{{ profile.bio }}</p>
             </div>
             <div class="col-md-8">
-                <h3>User Profile</h3>
                 <div class="row gy-4 mb-4">
-                    <p><strong>Username:</strong> {{ request.user.username }}</p>
-                    <p><strong>Email:</strong> {{ request.user.email }}</p>
-                    <p><strong>Bio:</strong> {{ profile.bio }}</p>
-                    <p><strong>Location:</strong> {{ profile.address }}</p>
-                    <p><strong>Birth Date:</strong> {{ profile.birth_date }}</p>
+                    <div class="col-md-6">
+                        <label class="text-secondary">Username</label>
+                        <div class=" border border-1 p-2">{{ request.user.username }}</div>   
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong class="text-secondary">Email</strong>
+                        <div class=" border border-1 p-2">{{ request.user.email }}</div>                    
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong class="text-secondary">Address</strong> 
+                        <div class=" border border-1 p-2">{{ profile.address }}</div>   
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong class="text-secondary">Birth Date</strong> 
+                        <div class=" border border-1 p-2">{{ profile.birth_date }}</div>      
+                    </div>
+                    
                 </div>
-                <div class="d-grid gap-2 col-4 mx-auto">
-                    <button class="btn btn-primary" type="button">edit</button>
+                <div class="d-grid gap-2 col-4 mx-auto py-4">
+                    <a href="{% url 'user-profile-update' %}" class="btn btn-primary" type="button">Update Profile</a>
                 </div>
             </div>
         </div>
