@@ -148,6 +148,6 @@ def export(request):
     )  
 
     data = TransactionResource().export(transaction_filter.qs)
-    response = HttpResponse(data.json, content_type='application/json')
-    response['Content-Disposition'] = 'attachment; filename="transactions.json"'
+    response = HttpResponse(data.csv)
+    response['Content-Disposition'] = 'attachment; filename="transactions.csv"'
     return response
