@@ -1,16 +1,16 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block content %}
-<div class="row gy-4">
-    <div class="col-md-5 bg-primary text-white d-flex justify-content-center align-items-center vh-100">
-        <div class="container text-center">
+<div class="row gy-4 px-4">
+    <div class="col-md-5 text-white d-flex justify-content-center align-items-center vh-100">
+        <div class="container text-center bg-primary p-4">
             <h1>Already have an Account?</h1>
-            <p>{% lorem 1 b random %}</p>
+            <p>Inventore enim dignissimos excepturi amet repudiandae quibusdam neque nam animi architecto, assumenda laborum ad quo ab quis suscipit</p>
             <a href="{% url 'user-login' %}" class="btn btn-orange">Sign In</a>
         </div>
     </div>
     <div class="col-md-7 d-flex justify-content-center align-items-center vh-100">
-        <div class="container text-center">
+        <div class="container text-center p-4">
             <h1>Welcome to Finance Tracker App</h1>
             <p>Register using social networks</p>
             <div class="social d-flex text-enter justify-content-center gap-2">
@@ -21,7 +21,48 @@
             <p>or</p>
             <form method="POST">
                 {% csrf_token %}
-                {{form }}
+
+                <div class="form-group mb-4 row align-items-center">
+                    <label for="{{form.username.id_for_label}}" class="col-sm-2 form-label text-primary">Username:</label>
+                    <div class="col-sm-10">
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="text-danger">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-4 row align-items-center">
+                    <label for="{{ form.email.id_for_label }}" class="col-sm-2 form-label">Email:</label>
+                    <div class="col-sm-10">
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group mb-4 row align-items-center">
+                    <label for="{{ form.password1.id_for_label }}" class="col-sm-2 form-label">Password:</label>
+                    <div class="col-sm-10">
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <div class="text-danger">{{ form.password1.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+        
+                <div class="form-group mb-4 row align-items-center">
+                    <label for="{{ form.password2.id_for_label }}" class="col-sm-2 form-label">Confirm Password:</label>
+                    <div class="col-sm-10">
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <div class="text-danger">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+        
                 <button class="btn btn-orange" type="submit">Sign Up</button>
             </form>
         </div>
