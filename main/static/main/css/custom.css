@@ -108,3 +108,31 @@ body {
 .color-linkedIn {
     color: #0077B5;
 } 
+.bg-dark-blue {
+    background-color: #1b768e !important;
+}
+
+@media (max-width: 576px) {
+    .header {
+        font-size: 1.5rem; /* Adjust as needed */
+    }
+    .fs-3 {
+        font-size: 1.25rem; /* Adjust as needed */
+    }
+}
+@media (min-width: 577px) and (max-width: 768px) {
+    .header {
+        font-size: 2rem; /* Adjust as needed */
+    }
+    .fs-3 {
+        font-size: 1.5rem; /* Adjust as needed */
+    }
+}
+@media (min-width: 769px) {
+    .header {
+        font-size: 3.5rem; /* Adjust as needed */
+    }
+    .fs-3 {
+        font-size: 1.75rem; /* Adjust as needed */
+    }
+}
