@@ -11,15 +11,17 @@ def userRegister(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, 'You have successfully registered')
+            form.save()
+            username = form.cleaned_data.get('username')
+            # messages.success(request, 'You have successfully registered')
+            messages.success(request, f'Account created for {username}!')
             return redirect('home')
     
     form = UserRegisterForm()
 
     context = {
-        'form': form
+        'form': form,
+        'title': 'Register'
     }
 
     return render(request, 'user/register.html', context)
@@ -40,7 +42,8 @@ def userLogin(request, *args, **kwargs):
     form = UserLoginForm()
 
     context = {
-        'form': form
+        'form': form,
+        'title': 'Login'
     }
     return render(request, 'user/login.html', context)
 
@@ -57,7 +60,11 @@ def userProfile(request):
 @login_required
 def userProfileUpdate(request):
     profile = Profile.objects.filter(user=request.user).first()
-    form = ProfileForm(instance=profile)
+    
+    if profile is None:
+        messages.success(request, 'Profile not found. Please create your profile')
+        return redirect('user-profile-update')
+    
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
@@ -66,10 +73,11 @@ def userProfileUpdate(request):
             return redirect('user-profile')
     
     else:
-        form = ProfileForm()
+        form = ProfileForm(instance=profile)
 
     context = {
-        'form': form
+        'form': form,
+        'title': 'Update Profile'
     }
 
     return render(request, 'user/user-profile-update.html', context)
