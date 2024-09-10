@@ -1,9 +1,9 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block content %}
-<div class="row gy-4">
+<div class="row gy-4 px-4">
     <div class="col-md-7 d-flex justify-content-center align-items-center vh-100">
-        <div class="container text-center">
+        <div class="container text-center px-4">
             <h1>Login to your account</h1>
             <p>Login using social networks</p>
             <div class="social d-flex text-enter justify-content-center gap-2">
@@ -14,15 +14,35 @@
             <p>or</p>
             <form method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}  
+                <div class="form-group mb-4 row align-items-center">
+                    <label for="{{form.username.id_for_label}}" class="col-sm-2 form-label text-primary">Username:</label>
+                    <div class="col-sm-10">
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="text-danger">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-4 row align-items-center">
+                    <label for="{{ form.password.id_for_label }}" class="col-sm-2 form-label">Password:</label>
+                    <div class="col-sm-10">
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="text-danger">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% comment %} {{ form.as_p }}   {% endcomment %}
                 <button class="btn btn-orange" type="submit">Sign In</button>
             </form>
         </div>
     </div>
-    <div class="col-md-5 bg-primary text-white d-flex justify-content-center align-items-center vh-100">
-        <div class="container text-center">
+    <div class="col-md-5 text-white d-flex justify-content-center align-items-center vh-100">
+        <div class="container bg-primary text-center p-4">
             <h1>New Here?</h1>
-            <p>{% lorem 1 b random %}</p>
+            <p>Quisquam amet officiis nobis ut ipsam, maxime rerum illum, eaque praesentium quibusdam accusantium doloremque magni nihil tempora iste dolorem molestiae.</p>
             <a href = "{% url 'user-register' %}" class="btn btn-orange">Sign Up</a>
         </div>
     </div>
